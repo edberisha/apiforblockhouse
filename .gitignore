@@ -1,0 +1,49 @@
+# Python
+*.py[cod]
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+  
+# Django
+*.sqlite3
+/db.sqlite3
+/media
+/staticfiles
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Local environment variables
+.env
+
+# Coverage reports
+coverage/
+*.cover
+
+# Migrations
+*/migrations/*.py
+*/migrations/__init__.py
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Docker
+*.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Other
+*.DS_Store
+Thumbs.db

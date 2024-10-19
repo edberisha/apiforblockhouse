@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backtest and Predict Stock Strategy</title>
+</head>
+<body>
+    <div>
+        First choose a stock and run it through the backtest stock strategy to (1) test your short and long moving parameters over the last two years, and (2) populate the PostegreSQL database with the historical financial data for that stock so you may then get predictions based off of our linear regression model. 
+    </div>
+    <div class="container">
+        <h1>Backtest Stock Strategy</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  
+            <button type="submit">Run Backtest</button>
+        </form>
+
+        {% if result %}
+            <h2>Results:</h2>
+            <ul>
+                <li>Total Return: {{ result.total_return }}</li>
+                <li>Number of Trades: {{ result.number_of_trades }}</li>
+            </ul>
+        {% endif %}
+        
+        {% if form.errors %}
+            <div class="error">
+                <h3>Errors:</h3>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <h2>Predict and Generate Report</h2>
+        <form method="post" action="{% url 'report' %}">
+            {% csrf_token %}
+            <label for="stock_symbol">Stock Symbol:</label>
+            <input type="text" name="stock_symbol" required>
+            <button type="submit">Get Prediction and Generate Report</button>
+        </form>
+    </div>
+</body>
+</html>
